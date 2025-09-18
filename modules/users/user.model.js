@@ -1,0 +1,18 @@
+const { Schema, model } = require("mongoose");
+
+const userSchema = new Schema(
+  {
+    name: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    isBlocked: { type: Boolean, required: true, default: false },
+    isEmailVerified: { type: Boolean, required: true, default: false },
+    otp: { type: String },
+    refresh_token: { code: { type: String }, duration: { type: Date } },
+    roles: { type: [String], enum: ["admin", "user"], default: "user" },
+    picture: { type: String },
+  },
+  { timestamps: true }
+);
+
+module.exports = model("User", userSchema);
